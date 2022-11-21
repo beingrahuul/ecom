@@ -1,4 +1,11 @@
+import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
+
+
+import  { useAuthContext } from '../../hooks/useAuthContext'
+import { useSignup } from '../../hooks/useSignup'
 import styled from "styled-components"
+
 import { mobile } from "../../responsive"
 
 
@@ -45,6 +52,7 @@ const Input = styled.input`
 const Agreement = styled.span`
   font-size: 12px;
   margin: 20px 0px;
+  width: 100%;
 `
 
 const Button = styled.button`
@@ -58,17 +66,77 @@ const Button = styled.button`
 
 
 function Register() {
+
+  const { user } = useAuthContext()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if(user){
+      navigate('/')
+    }
+  })
+
+  const [formData, setFormData] = useState({
+    email:'',
+    name:'',
+    password: '',
+    password2: ''
+
+  })
+
+  const {signup, isPending, error} = useSignup()
+
+
+  const handleSubmit = async(e) => {
+    e.preventDefault()
+    if(formData.password === formData.password2){
+      await signup(formData.email, formData.password, formData.name);
+    }
+  }
+
+  const handleChange = (e) => {
+ 
+    setFormData(prevState => ({
+      ...prevState,
+      [e.target.name]: e.target.value
+    }))
+  }
+
   return (
     <Container>
       <Wrapper>
         <Title>Create An Account</Title>
-        <Form>
-          <Input placeholder="first name" />
-          <Input placeholder="last name" />
-          <Input placeholder="username" />
-          <Input placeholder="email" />
-          <Input placeholder="password" />
-          <Input placeholder="confirm password" />
+        <Form onSubmit={handleSubmit} >
+          <Input 
+            placeholder="Name" 
+            name='name'
+            required
+            onChange={handleChange}
+            value={formData.name}
+          />
+          <Input 
+            placeholder="Email"
+            name='email'
+            required
+            onChange={handleChange}
+            value={formData.email}
+          />
+          <Input 
+            placeholder="Password"
+            type="password"
+            required
+            name='password'
+            onChange={handleChange}
+            value={formData.password}
+          />
+          <Input 
+            placeholder="Confirm password" 
+            type="password"
+            name='password2'
+            required
+            onChange={handleChange}
+            value={formData.password2}
+          />
           <Agreement>
             By creating an account, I consent to the processing of my personal
             data in accordance with the <b>PRIVACY POLICY</b>

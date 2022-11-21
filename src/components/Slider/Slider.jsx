@@ -82,7 +82,13 @@ const Button = styled.button`
   padding: 10px;
   font-size: 20px;
   background-color: transparent;
+  border-radius: 10px;
   cursor: pointer;
+  transition: all 0.1s ease;
+  &:hover{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    font-weight: bold;
+  }
 `
 
 function Slider() {

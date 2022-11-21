@@ -48,6 +48,7 @@ const SocialIcon = styled.div`
   align-items: center;
   justify-content: center;
   margin-right: 20px;
+  cursor: pointer;
 `
 
 const Center = styled.div`
@@ -92,7 +93,7 @@ function Footer() {
   return (
     <Container>
       <Left>
-        <Logo>Beingrahuul.</Logo>
+        <Logo>APNI DUKAAN</Logo>
         <Decs>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maiores enim perferendis fugiat, est nulla corporis illo ea similique, libero eligendi aspernatur molestiae quibusdam quod non ex in reiciendis unde distinctio.</Decs>
         <SocialContainer>
           <SocialIcon color="3b5999">
@@ -129,9 +130,9 @@ function Footer() {
       </Center>
       <Right>
         <Title>Contact</Title>
-        <ContactItem><LocationOnIcon /> Blah Blah blah blah blah</ContactItem>
-        <ContactItem><PhoneIcon /> +121321312 </ContactItem>
-        <ContactItem><EmailIcon /> bringrahuul@gmail.com</ContactItem>
+        <ContactItem><LocationOnIcon /> Nangli dairy</ContactItem>
+        <ContactItem><PhoneIcon /> +919213770127 </ContactItem>
+        <ContactItem><EmailIcon /> apnidukaan@gmail.com</ContactItem>
         <Payment src="https://i.ibb.co/Qfvn4z6/payment.png" />
       </Right>
     </Container>

@@ -1,3 +1,10 @@
+import { useState, useEffect } from "react"
+import { useNavigate } from 'react-router-dom'
+
+
+import { useLogin } from '../../hooks/useLogin'
+import  { useAuthContext } from '../../hooks/useAuthContext'
+
 import styled from "styled-components"
 import { mobile } from "../../responsive"
 
@@ -61,13 +68,44 @@ const Link = styled.a`
 
 
 function Login() {
+
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const { user } = useAuthContext()
+  const navigate = useNavigate()
+ 
+  useEffect(() => {
+    if(user){
+      navigate('/')
+    }
+  })
+
+  const {login, isPending, error} = useLogin()
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    await login(email, password)
+  }
+
   return (
     <Container>
       <Wrapper>
         <Title>Sign In</Title>
-        <Form>
-          <Input placeholder="username" />
-          <Input placeholder="password" />
+        <Form  onSubmit={handleSubmit}>
+          <Input 
+            placeholder="email" 
+            required
+            onChange={ (e) => setEmail(e.target.value)}
+            value={email}
+          />
+          <Input 
+            type="password"
+            required
+            onChange={ (e) => setPassword(e.target.value)}
+            value={password}
+            placeholder="password" 
+          />
           <Button>Login</Button>
           <Link>DO NOT YOU REMEMBER THE PASSWORD?</Link>
           <Link>CREATE A NEW ACCOUNT</Link>
